@@ -1,34 +1,42 @@
 var connection = require('../config/connection.js');
 
 var orm = {
-  all: function( , cb) {
-    var queryString = // mysql queryString
+  all: function(table, cb) {
+    var queryString = 'SELECT * FROM ' + table + ';';
     console.log(queryString);
-    connection.query(queryString, function() {
-
+    connection.query(queryString, function(err, result) {
+      if(err) throw err;
+      cb(result);
     });
   },
-  create: function( , cb) {
-    var queryString = // mysql queryString
+  create: function(table, cols, vals, cb) {
+    var queryString = 'INSERT INTO ' + table + ' (';
+    queryString += cols.toString();
+    queryString += ') VALUES (?, ?)';
     console.log(queryString);
-    connection.query(queryString, function() {
-
+    connection.query(queryString, [vals], function() {
+      if(err) throw err;
+      cb(result);
     });
   },
-  update: function( , cb) {
-    var queryString = // mysql queryString
+  update: function(table, objColVals, condition, cb) {
+    var queryString = 'UPDATE ' + table + ' SET '; // incomplete
     console.log(queryString);
     connection.query(queryString, function() {
-
+      if(err) throw err;
+      cb(result);
     });
   },
-  delete: function( , cb) {
-    var queryString = // mysql queryString
+  delete: function(table, condition, cb) {
+    var queryString = 'DELETE FROM ' + table;
+    queryString += ' WHERE ';
+    queryString += condition;
     console.log(queryString);
     connection.query(queryString, function() {
-
+      if(err) throw err;
+      cb(result);
     });
   }
 };
 
-modules.export = orm;
+module.exports = orm;
