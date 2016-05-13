@@ -12,17 +12,18 @@ var orm = {
   create: function(table, cols, vals, cb) {
     var queryString = 'INSERT INTO ' + table + ' (';
     queryString += cols.toString();
-    queryString += ') VALUES (?, ?)';
+    queryString += ') VALUES (?)';
     console.log(queryString);
-    connection.query(queryString, [vals], function() {
+    connection.query(queryString, [vals], function(err, result) {
       if(err) throw err;
       cb(result);
     });
   },
   update: function(table, objColVals, condition, cb) {
-    var queryString = 'UPDATE ' + table + ' SET '; // incomplete
+    var queryString = 'UPDATE ' + table + ' SET ' + objColVals + ' WHERE ' + condition;
     console.log(queryString);
-    connection.query(queryString, function() {
+    console.log(objColVals);
+    connection.query(queryString, function(err, result) {
       if(err) throw err;
       cb(result);
     });
@@ -32,7 +33,7 @@ var orm = {
     queryString += ' WHERE ';
     queryString += condition;
     console.log(queryString);
-    connection.query(queryString, function() {
+    connection.query(queryString, function(err, result) {
       if(err) throw err;
       cb(result);
     });
