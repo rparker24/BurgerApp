@@ -1,0 +1,19 @@
+body {
+  background-color: blanchedalmond;
+}
+
+h1 {
+  text-align: center;
+}
+
+.freshBurgers {
+  float: left;
+}
+
+.eatenBurgers {
+  float: right;
+}
+
+.addBurger {
+  text-align: center;
+}
